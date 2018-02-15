@@ -1,0 +1,114 @@
+{
+  "name": "messenger",
+  "description": "General purpose messenger service",
+  "version": "0.1.0",
+  "author": "Felipe Hlibco <hlibco@gmail.com>",
+  "engines": {
+    "npm": ">=6",
+    "yarn": ">=0.14.0"
+  },
+  "main": "./src/index",
+  "license": "MIT",
+  "pre-commit": "lint",
+  "scripts": {
+    "build": "rimraf ./dist && tsc",
+    "client": "NODE_ENV=development DEBUG=messenger:* DEBUG_COLORS=true ts-node src/example/client.ts",
+    "cov": "nyc ava",
+    "cov:html": "rimraf ./coverage && nyc ava --reporter=html && opn coverage/index.html",
+    "lint": "tslint --project . -s node_modules/custom-tslint-formatters/formatters 'src/**/*.+(ts|tsx)' -t grouped",
+    "scripts": "npm-scripts-info",
+    "start": "nodemon",
+    "tdd": "yarn build && concurrently -r --kill-others 'npm run --silent build -- -w' 'sleepms 2000 && ava -w'",
+    "test": "NODE_ENV=test DEBUG=test,messenger:* DEBUG_COLORS=true ava-ts src/__tests__/**/*.ts",
+    "unit": "yarn build && ava"
+  },
+  "scripts-info": {
+    "build": "(Trash and re)build the library",
+    "client": "Run the example client (setup the `.env` file and `npm start` beforehand)",
+    "cov": "Run tests and generate coverage report",
+    "cov:html": "Run tests, generate the HTML coverage report, and open it in a browser",
+    "lint": "Lint all typescript source files",
+    "start": "Start the service",
+    "tdd": "Watch source files, rebuild library on changes and run tests on watch mode",
+    "test": "Test source files without compiling",
+    "unit": "Build the library, tests and run unit tests"
+  },
+  "ava": {
+    "color": true,
+    "concurrency": 5,
+    "failFast": true,
+    "require": [
+      "ts-node/register"
+    ],
+    "source_": [
+      "dist/__tests__/**/*.js"
+    ],
+    "tap": false,
+    "verbose": true,
+    "watch": false
+  },
+  "nyc": {
+    "all": true,
+    "branches": 5,
+    "cache": true,
+    "check-coverage": true,
+    "exclude": [
+      "dist/__tests__/**/*.js"
+    ],
+    "functions": 5,
+    "include": [
+      "dist/**/*.js"
+    ],
+    "instrument": true,
+    "lines": 20,
+    "report-dir": "./coverage",
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "sourceMap": true,
+    "statements": 5
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "it",
+      "expect",
+      "process"
+    ]
+  },
+  "dependencies": {
+    "@types/cote": "^0.14.3",
+    "@types/twilio": "^0.0.9",
+    "clarify": "^2.0.0",
+    "confidence": "^3.0.2",
+    "cote": "^0.16.0",
+    "dotenv": "^4.0.0",
+    "lynx": "^0.2.0",
+    "node-dogstatsd": "^0.0.6",
+    "pretty-error": "^2.1.1",
+    "raven": "^2.3.0",
+    "trace": "^3.0.0",
+    "tslib": "^1.8.0",
+    "twilio": "^3.11.0",
+    "uuid": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.47",
+    "ava": "^0.23.0",
+    "ava-ts": "0.23.0",
+    "concurrently": "^3.5.0",
+    "custom-tslint-formatters": "^2.1.1",
+    "nodemon": "1.12.1",
+    "npm-scripts-info": "^0.3.6",
+    "nyc": "11.3.0",
+    "opn-cli": "^3.1.0",
+    "rimraf": "^2.6.2",
+    "sinon": "4.1.1",
+    "sleep-ms": "^2.0.1",
+    "ts-node": "3.3.0",
+    "tslint": "^5.8.0",
+    "tslint-config-standard": "^7.0.0",
+    "typescript": "2.6.1"
+  }
+}

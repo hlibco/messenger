@@ -1,0 +1,24 @@
+# package directories
+node_modules
+
+# Serverless directories
+.serverless
+
+# Sensitive data
+serverless.env.yml
+
+# Compiled files
+.build
+.nyc_output
+coverage/
+dist/
+
+# Logs
+.log
+
+# Secrets
+.env
+
+# Others
+statsd/
+src/**/_*.ts

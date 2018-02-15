@@ -1,0 +1,25 @@
+{
+  "delay": 0,
+  "env": {
+    "DEBUG": "messenger:*",
+    "DEBUG_COLORS": true,
+    "MESSENGER_PORT": 8004,
+    "NODE_ENV": "development"
+  },
+  "events": {
+    "_restart": "osascript -e 'display notification \"App restarted due to:\n'$FILENAME'\" with title \"nodemon\"'"
+  },
+  "exec": "ts-node --stack_trace_limit=100 -r trace -r clarify src/index.ts",
+  "ext": "ts",
+  "ignore": [
+    ".git",
+    "node_modules",
+    "src/__tests__"
+  ],
+  "inspect": true,
+  "protocol": "inspector",
+  "verbose": true,
+  "watch": [
+    "src"
+  ]
+}
